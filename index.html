@@ -106,7 +106,7 @@
     <div class="img_wrapper" id='wrapper'>
       <div class="bg_img" id="img"></div>
       <div>
-        <ul class="slideBar" id="ul_bar">
+        <ul class="" id="ul_bar">
          <li>Lorem</li>
          <li>Lorem</li>
          <li>Lorem</li>
@@ -117,24 +117,24 @@
 
   </body>
   <script>
-    let a=document.getElementById('mask');
-    let b=document.getElementById('img');
-    let c=document.getElementById('wrapper');
-    let d=document.getElementById('ul_bar');
-    let width=getComputedStyle(c,null)['width']
-    let height=getComputedStyle(c,null)['height']
-    b.style.transform='scale(1)';
-    b.style.opacity=1;
-    var handler=function(e) {
-      let changedX=(40-(e.offsetX*80/parseFloat(width)));
-      let changedY=(40-(e.offsetY*80/parseFloat(height)));
-      b.style.transform=`scale(1) translate3d(${changedX}px,${changedY}px,0px)`;
-    }
     window.onload=function() {
+      let a=document.getElementById('mask');
+      let b=document.getElementById('img');
+      let c=document.getElementById('wrapper');
+      let d=document.getElementById('ul_bar');
+      let width=getComputedStyle(c,null)['width']
+      let height=getComputedStyle(c,null)['height']
+      var handler=function(e) {
+        let changedX=(40-(e.offsetX*80/parseFloat(width)));
+        let changedY=(40-(e.offsetY*80/parseFloat(height)));
+        b.style.transform=`scale(1) translate3d(${changedX}px,${changedY}px,0px)`;
+      }
+      b.style.transform='scale(1)';
+      b.style.opacity=1;
       setTimeout(`b.style.transition='all 0s';
                   a.onmousemove=handler;
-
-      `,1000)
+      `,1000);
+      d.classList.add('slideBar');
       ;
     }
   </script>
