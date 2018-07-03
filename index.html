@@ -87,6 +87,16 @@
         background: rgba(255, 255, 255,1);
         transform: scale(1.1);
       }
+      .load{
+        position: absolute;
+        z-index: 999;
+        color:white;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+      }
       @keyframes move {
         from{
           transform: scale(0.8) translate3d(100px,0,0);
@@ -100,7 +110,8 @@
     </style>
   </head>
   <body>
-    <audio loop="loop" preload="auto" src="./video/a.mp3" autoplay></audio>
+    <div class="load" id="load">Loading...</div>
+    <audio loop="loop" preload="auto" src="./video/a.mp3" muted  autoplay></audio>
     <div class="main_wrapper" id="mask">
     </div>
     <div class="img_wrapper" id='wrapper'>
@@ -117,25 +128,27 @@
 
   </body>
   <script>
-    window.onload=function() {
-      let a=document.getElementById('mask');
-      let b=document.getElementById('img');
-      let c=document.getElementById('wrapper');
-      let d=document.getElementById('ul_bar');
-      let width=getComputedStyle(c,null)['width']
-      let height=getComputedStyle(c,null)['height']
-      var handler=function(e) {
-        let changedX=(40-(e.offsetX*80/parseFloat(width)));
-        let changedY=(40-(e.offsetY*80/parseFloat(height)));
-        b.style.transform=`scale(1) translate3d(${changedX}px,${changedY}px,0px)`;
-      }
-      b.style.transform='scale(1)';
-      b.style.opacity=1;
-      setTimeout(`b.style.transition='all 0s';
-                  a.onmousemove=handler;
-      `,1000);
-      d.classList.add('slideBar');
-      ;
-    }
+        let a=document.getElementById('mask');
+        let b=document.getElementById('img');
+        let c=document.getElementById('wrapper');
+        let d=document.getElementById('ul_bar');
+        let e=document.getElementById('load');
+        let width=getComputedStyle(c,null)['width'];
+        let height=getComputedStyle(c,null)['height'];
+        var handler=function(e) {
+          let changedX=(40-(e.offsetX*80/parseFloat(width)));
+          let changedY=(40-(e.offsetY*80/parseFloat(height)));
+          b.style.transform=`scale(1) translate3d(${changedX}px,${changedY}px,0px)`;
+        }
+        window.onload=function() {
+          e.style.display='none';
+          b.style.transform='scale(1)';
+          b.style.opacity=1;
+          setTimeout(`b.style.transition='all 0s';
+                      a.onmousemove=handler;
+          `,1000);
+          d.classList.add('slideBar');
+          ;
+        }
   </script>
 </html>
