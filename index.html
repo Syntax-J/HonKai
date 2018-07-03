@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title></title>
     <style>
+    @font-face {
+      font-family: reeji; /*这里是说明调用来的字体名字*/
+      src: url('./font/reeji.ttf'); /*这里是字体文件路径*/
+    }
     *{
       padding: 0;
       margin: 0
@@ -29,7 +33,6 @@
       .img_wrapper{
         width: 100%;
         height: 100%;
-
       }
       .bg_img{
           overflow: hidden;
@@ -47,19 +50,82 @@
         transform: scale(2) translate3d(0,0,0);
         opacity: 0;
       }
+      .slideBar{
+        position: relative;
+        float: right;
+        z-index: 2;
+        width: 25%;
+        margin: 8% 15%;
+        text-align: center;
+        list-style-type: none;
+        transition: all 0.8s;
+
+      }
+      .slideBar li{
+        font-family: reeji;
+        font-size: 20px;
+        line-height: 1.2;
+        margin-top: 5%;
+        text-decoration: none;
+        padding: 10px 10%;
+        background: rgba(255,255,255,0.3);
+        transition: all 0.3s;
+        transform: scale(1);
+        opacity: 1;
+        animation:move 1s;
+        animation-fill-mode:backwards;
+      }
+      .slideBar li:nth-child(1){
+        animation-delay: 0.5s;
+      }
+      .slideBar li:nth-child(2){
+        animation-delay: 0.6s;
+      }
+      .slideBar li:nth-child(3){
+        animation-delay: 0.7s;
+      }
+      .slideBar li:nth-child(4){
+        animation-delay: 0.8s;
+
+      }
+      .slideBar li:hover{
+        background: rgba(255, 255, 255,1);
+        transform: scale(1.1);
+      }
+      @keyframes move {
+        from{
+          transform: scale(0.8) translate3d(100px,0,0);
+          opacity: 0;
+        }
+        to{
+          transform: scale(1) translate3d(0px,0,0);
+          opacity: 1;
+        }
+      }
     </style>
   </head>
   <body>
     <audio loop="loop" preload="auto" src="./video/a.mp3" autoplay></audio>
-    <div class="main_wrapper" id="mask"></div>
+    <div class="main_wrapper" id="mask">
+    </div>
     <div class="img_wrapper" id='wrapper'>
       <div class="bg_img" id="img"></div>
+      <div>
+        <ul class="slideBar" id="ul_bar">
+         <li>Lorem</li>
+         <li>Lorem</li>
+         <li>Lorem</li>
+         <li>Lorem</li>
+        </ul>
+      </div>
     </div>
+
   </body>
   <script>
     let a=document.getElementById('mask');
     let b=document.getElementById('img');
     let c=document.getElementById('wrapper');
+    let d=document.getElementById('ul_bar');
     let width=getComputedStyle(c,null)['width']
     let height=getComputedStyle(c,null)['height']
     b.style.transform='scale(1)';
@@ -72,9 +138,9 @@
     window.onload=function() {
       setTimeout(`b.style.transition='all 0s';
                   a.onmousemove=handler;
+
       `,1000)
       ;
     }
-
   </script>
 </html>
