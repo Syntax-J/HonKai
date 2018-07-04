@@ -97,6 +97,21 @@
         justify-content: center;
         align-items: center;
       }
+      .bgm_div{
+        position: absolute;
+        cursor: pointer;
+        top:2%;
+        right:10%;
+        z-index: 3;
+        float: right;
+        color:white;
+        text-decoration: underline;
+        transition: all 1s;
+        opacity: 0;
+      }
+      .bgm_muted{
+        text-decoration: line-through;
+      }
       @keyframes move {
         from{
           transform: scale(0.8) translate3d(100px,0,0);
@@ -111,7 +126,9 @@
   </head>
   <body>
     <div class="load" id="load">Loading...</div>
-    <audio loop="loop" preload="auto" src="./video/a.mp3" autoplay></audio>
+    <audio loop="loop" preload="auto" src="./video/a.mp3" autoplay id="audio"></audio>
+    <div class="bgm_div" id="bgm">BGM
+    </div>
     <div class="main_wrapper" id="mask">
     </div>
     <div class="img_wrapper" id='wrapper'>
@@ -133,19 +150,35 @@
         let c=document.getElementById('wrapper');
         let d=document.getElementById('ul_bar');
         let e=document.getElementById('load');
+        let f=document.getElementById('bgm');
+        let g=document.getElementById('audio');
         let width=getComputedStyle(c,null)['width'];
         let height=getComputedStyle(c,null)['height'];
+        function isChrome(){
+          return navigator.userAgent.indexOf('Chrome') > -1;
+        }
+        if(isChrome()){
+          g.muted=true;
+          f.classList.add('bgm_muted');
+        }
         var handler=function(e) {
           let changedX=(40-(e.offsetX*80/parseFloat(width)));
           let changedY=(40-(e.offsetY*80/parseFloat(height)));
           b.style.transform=`scale(1) translate3d(${changedX}px,${changedY}px,0px)`;
         }
+        var bgm_handler=function() {
+          g.play();
+          g.muted=!g.muted;
+          f.classList.toggle('bgm_muted')
+        }
         window.onload=function() {
           e.style.display='none';
           b.style.transform='scale(1)';
           b.style.opacity=1;
+          f.style.opacity=1;
           setTimeout(`b.style.transition='all 0s';
                       a.onmousemove=handler;
+                      f.onclick=bgm_handler;
           `,1000);
           d.classList.add('slideBar');
           ;
